@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+</head>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    gap: 20
+  }
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  #category {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="box" id="options">
+    <h1>
+      Quiz Options
+    </h1>
+    <select name="category" id="category" onchange="">
+      <option value="books">Books</option>
+      <option value="game">Game</option>
+    </select>
+    <button id="btn-options">Start</button>
+  </div>
+  <div id="quiz" class="box hidden">
+    <h1 id="question-header">Question 1 /2</h1>
+
+    <div id="question"></div>
+    <button id="btn-options">Start</button>
+  </div>
+</body>
+
+
+<script>
+  const bookQuestions = [
+    {
+      question: "Who is the author of the book 'To Kill a Mockingbird'?",
+      options: ["J.K. Rowling", "Harper Lee", "George Orwell", "Ernest Hemingway"],
+      correctAnswer: "Harper Lee"
+    },
+    {
+      question: "The book '1984' depicts a totalitarian society by which author?",
+      options: ["Aldous Huxley", "George Orwell", "Ray Bradbury", "Kurt Vonnegut"],
+      correctAnswer: "George Orwell"
+    },
+    {
+      question: "'The Great Gatsby' was written by whom?",
+      options: ["F. Scott Fitzgerald", "Jane Austen", "Charles Dickens", "Mark Twain"],
+      correctAnswer: "F. Scott Fitzgerald"
+    },
+    {
+      question: "In the book 'The Hobbit,' who is the main character?",
+      options: ["Frodo Baggins", "Bilbo Baggins", "Samwise Gamgee", "Aragorn"],
+      correctAnswer: "Bilbo Baggins"
+    },
+    {
+      question: "'To the Lighthouse' is a work by which author?",
+      options: ["Virginia Woolf", "Gabriel Garcia Marquez", "Leo Tolstoy", "Emily Brontë"],
+      correctAnswer: "Virginia Woolf"
+    }
+  ];
+
+  const gameQuestions = [
+    {
+      question: "In 'The Legend of Zelda,' what is the name of the main character?",
+      options: ["Link", "Zelda", "Ganondorf", "Midna"],
+      correctAnswer: "Link"
+    },
+    {
+      question: "In 'Super Mario Bros.,' where does Mario live?",
+      options: ["Mushroom Kingdom", "Hyrule", "Green Hill Zone", "Agrabah"],
+      correctAnswer: "Mushroom Kingdom"
+    },
+    {
+      question: "Who is the main character in the 'Uncharted' series?",
+      options: ["Nathan Drake", "Lara Croft", "Joel", "Master Chief"],
+      correctAnswer: "Nathan Drake"
+    },
+    {
+      question: "'The Witcher 3: Wild Hunt' is based on books by which author?",
+      options: ["J.K. Rowling", "George R.R. Martin", "Andrzej Sapkowski", "Philip Pullman"],
+      correctAnswer: "Andrzej Sapkowski"
+    },
+    {
+      question: "'Fortnite' belongs to which genre of games?",
+      options: ["Battle Royale", "First-Person Shooter (FPS)", "Role-Playing Game (RPG)", "Simulation"],
+      correctAnswer: "Battle Royale"
+    }
+  ];
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    function renderQuestion(questionIndex) {
+      const currentQuestion = selectedCategory === 'books' ? bookQuestions[questionIndex] : gameQuestions[questionIndex];
+      questionHeader.textContent = `Question ${questionIndex + 1} / ${selectedCategory === 'books' ? bookQuestions.length : gameQuestions.length}`;
+      questionContainer.innerHTML = `<p>${currentQuestion.question}</p>`;
+      currentQuestion.options.forEach((option, index) => {
+        questionContainer.innerHTML += `<input type="radio" name="answer" value="${option}" id="option${index + 1}">
+                                           <label for="option${index + 1}">${option}</label><br>`;
+      });
+    }
+
+    // initial
+    let selectedCategory = 'books';
+    const initialState = 'options';
+
+    const btnOptions = document.getElementById('btn-options');
+    const questionContainer = document.getElementById('question');
+
+    const questionHeader = document.getElementById('question-header');
+    const options = document.getElementById('options');
+    const quiz = document.getElementById('quiz');
+
+    // get data selected
+    document.getElementById('category').addEventListener('change', (e) => {
+      selectedCategory = e.target.value;
+    })
+    btnOptions.addEventListener('click', (e) => {
+      // hidden box options 
+      options.classList.add('hidden');
+      quiz.classList.remove('hidden');
+
+      renderQuestion(0);
+    })
+  })
+
+</script>
+
+</html>

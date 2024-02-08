@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  button {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid
+  }
+</style>
+
+<body>
+  <h1>
+    Login to Quizzs
+  </h1>
+  <form id="login-form" action="">
+    <input type="text" id="username" placeholder="Enter username...">
+    <input type="password" id="password" placeholder="Enter password...">
+    <button>Login</button>
+  </form>
+</body>
+
+<script>
+  const acc = {
+    username: "abc123",
+    password: "123456"
+  }
+  document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username !== acc.username && password != acc.password) {
+      alert('Invalid username or password');
+    }
+    else if (username === acc.username && password === acc.password) {
+      window.location.href = 'quiz.html';
+    }
+  })
+</script>
+
+</html>
